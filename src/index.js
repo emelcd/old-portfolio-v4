@@ -43,9 +43,8 @@ const myJobs = [
       "Active Directory(A.D)",
       "Implantación y Desarrollo de Aplicaciones Web",
       "Windows Server 2019, Windows 10, Linux(Debian, Arch)...",
-      "Mantenimiento de Servidores.",
       "HelpDesk AnyDesk",
-      "Mantenimiento y Reparación de equipos",
+      "Mantenimiento y Reparación de Equipos/Servidores",
     ],
   },
   {
@@ -222,7 +221,9 @@ const home = () => html`
           <h2 class="home__user-job">IT Technician</h2>
         </div>
       </div>
-      <div class="home__hidden">Hola 👋🏻</div>
+      <div class="home__hidden">
+        <h3>Hola 👋🏻</h3>
+      </div>
       <ul class="home__contact">
         <h4 style="color:#ff914d">Contact Me:</h4>
 
@@ -268,19 +269,6 @@ const home = () => html`
   </div>
 `;
 
-const langItem = (url) => {
-  let size = 0;
-  fetch(url, fetchOptions)
-    .then((response) => response.json())
-    .then((data) => {
-      let x = Object.keys(data).forEach((key) => {
-        size += data[key];
-        return data[key];
-      });
-      console.log(x);
-    })
-    .catch((error) => console.log(error));
-};
 
 const repos = (data) => html`
   <div class="repo">
@@ -289,10 +277,15 @@ const repos = (data) => html`
         <img class="card__user-img" src="${data.owner.avatar_url}" alt="user" />
       </div>
       <div class="card__content">
+        <div class="card__banner">
         <h4 class="card__title">
+          
           ${data.name}
-          ${data.private ? html`<i class="fas fa-lock"></i>` : nothing}
+          ${data.private
+            ? html`<i style="color:#000" class="fas fa-lock"></i>`
+            : nothing}
         </h4>
+        </div>
         <p class="card__text">${data.description}</p>
       </div>
       <div class="repo__contents">
@@ -318,12 +311,12 @@ const repos = (data) => html`
       <!-- card footer -->
       <div class="card__footer">
         <div class="card__footer-item">
-          <i class="fas fa-star"></i>
+          <i style="color: #EADDC6" class="fas fa-star"></i>
           <span>${data.stargazers_count}</span>
         </div>
         <div class="card__footer-item">
           <i class="fas fa-code-branch"></i>
-          <span>${data.forks_count}</span>
+          <span>${data.commits}</span>
         </div>
       </div>
       <div class="card__langs">
@@ -334,28 +327,19 @@ const repos = (data) => html`
             </span>
           `;
         })}
-        </div>
-
-
+      </div>
     </div>
   </div>
 `;
 
 const about = () => {
-  let url = "https://api.github.com/search/repositories?q=user:emelcd";
-  const content = document.getElementById("content");
-  fetch(url, fetchOptions)
-    .then((response) => response.json())
-    .then((data) => {
-      render(
-        html`
-          <h1 class="title__repo">Projects</h1>
-          <div class="repo-container">${json.map((repo) => repos(repo))}</div>
-        `,
-        content
-      );
-    })
-    .catch((error) => console.log(error));
+  let template = html`
+    <h1 class="title__repo">
+      GitHub Repos <i style="color: #000" class="fab fa-github"></i>
+    </h1>
+    <div class="repo-container">${json.map((repo) => repos(repo))}</div>
+  `;
+  return template;
 };
 
 const contact = () => html`
@@ -371,12 +355,7 @@ const handleTabs = (e) => {
   let tab = e.target.textContent.trim();
   render(
     until(
-      html` ${tab === "CV"
-        ? home()
-        : tab === "PROJECTS"
-        ? about()
-        : contact()}`,
-      html`ECO`
+      html` ${tab === "CV" ? home() : tab === "PROJECTS" ? about() : contact()}`
     ),
     document.getElementById("content")
   );
@@ -436,7 +415,7 @@ const header = () => html`
 
 const app = () => html`
   ${header()}
-  <main id="content">${about()}</main>
+  <main id="content">${home()}</main>
 `;
 
 render(app(), document.body);
@@ -444,5 +423,3 @@ render(app(), document.body);
 document.body.addEventListener("click", () => {
   render(nothing, document.getElementById("dropdown"));
 });
-
-about();
