@@ -1,16 +1,5 @@
 {
-  "name": "touristme",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "dependencies": {
-    "@fortawesome/fontawesome-free": "^5.15.4",
-    "lit-html": "^1.4.1"
+    "url": "^0.11.0"
   }
 }
