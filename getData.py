@@ -122,5 +122,3 @@ def saveToFile2():
             export const commit = {} \n
         """.format(data, commits).strip().replace("True", "true").replace("False", "false").replace("None", "null"))
     
-
-saveToFile2()

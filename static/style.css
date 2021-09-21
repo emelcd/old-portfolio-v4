@@ -333,7 +333,7 @@ body {
   padding: 0.5rem;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 726px) {
   .home__right {
     /* one grid with fit space */
     grid-template-columns: 1fr;
@@ -342,7 +342,6 @@ body {
 
   }
   .home {
-    font-size: 0.9rem;
     padding: .3rem;
     grid-template-columns: 1fr;
   }

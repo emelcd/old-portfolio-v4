@@ -12,13 +12,6 @@ const filteredCommits = () => {
   return arr.sort(short_data('author.date')).splice(0,10)
 }
 
-const fetchOptions = {
-  method: "GET",
-  headers: {
-    Authorization: `Token ${API_KEY}`,
-    "Content-Type": "application/json",
-  },
-};
 
 const myStudies = [
   {
@@ -138,9 +131,7 @@ const dataUs = (data) => html`
     ${data.data.map(
       (item) => html`
         <li
-          style="margin:.1rem;font-size:${data.data.length > 3
-            ? ".9rem"
-            : nothing}"
+
         >
           ${item}
         </li>
@@ -155,7 +146,7 @@ const dataSkills = (data) => html`
     ${data.skills.map((item, index) => {
       return html`
         <span
-          style=" font-weight:bold; color:${index % 2 === 1
+          style="font-weight:bold; color:${index % 2 === 1
             ? "black"
             : "#11A7D4"}"
           class="skill"
@@ -450,8 +441,8 @@ const contact = () => html`
 `;
 
 const handleTabs = (e) => {
-  console.log(e.target.textContent.trim());
   let tab = e.target.textContent.trim();
+  render(html``, document.getElementById('content'));
   render(
     html` ${tab === "CV" ? home() : tab === "PROYECTOS" ? about() : contact()}`,
     document.getElementById("content")
@@ -477,42 +468,13 @@ const header = () => html`
         </li>
       </ul>
     </nav>
-    <!-- <div class="header__menu">
-      <i
-        @mouseover=${(e) => {
-      render(
-        html`
-          <ul class="dropdown__list">
-            <li class="dropdown__item">My profile</li>
-            <li class="dropdown__item">My account</li>
-            <li class="dropdown__item">Logout</li>
-          </ul>
-        `,
-        document.getElementById("dropdown")
-      );
-    }}
-        @click=${(e) => {
-      render(
-        html`
-          <ul class="dropdown__list">
-            <li class="dropdown__item">My profile</li>
-            <li class="dropdown__item">My account</li>
-            <li class="dropdown__item">Logout</li>
-          </ul>
-        `,
-        document.getElementById("dropdown")
-      );
-    }}
-        class="fas fa-bars header__menu-icon "
-      ></i>
-    </div> -->
-    <div id="dropdown" class="dropdown"></div>
+
   </header>
 `;
 
 const app = () => html`
   ${header()}
-  <main id="content">${about()}</main>
+  <main id="content"></main>
 `;
 
 const short_data = (c) => {
